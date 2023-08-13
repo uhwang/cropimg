@@ -58,10 +58,6 @@ def save(options):
               str(f_out) ]
         
         try:
-            # https://docs.python.org/3/library/subprocess.html
-            # If you wish to capture and combine both streams into one, 
-            # use stdout=PIPE and stderr=STDOUT instead of capture_output.
-            # youtube-dl emits error and warning to stderr
             proc = sp.Popen(cmd, stdout=sp.PIPE, stderr=sp.STDOUT)
         except Exception as e:
             print("... Error: %s"%e)
