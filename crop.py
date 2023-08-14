@@ -14,11 +14,12 @@ def print_usage():
     print("python [path1] [ext] [path2] [left]x[top]x[right]x[bottom]\n"
           "path1 : input folder\n"
           "ext   : the extension of input files(jpg or png)\n"
-          "path2 : output folder\n"
+          "path2 : subfolder name under path1\n"
           "left  : the amount crop from left\n"
           "top   : the amount crop from top\n"
           "right : the amount crop from right\n"
-          "bottm : the amount crop from bottom\n")
+          "bottm : the amount crop from bottom\n"
+          "Ex) python crop book1 png crop 0x75x0x0")
 
 def save(options):
 
@@ -40,7 +41,7 @@ def save(options):
             path2.mkdir()
         except Exception as e:
             print("... Error: %s\n... Fail to create %s"%
-                 (e,str(path2)))
+                 (e,path2))
             return False
             
     print("=> Success")
@@ -58,6 +59,10 @@ def save(options):
               str(f_out) ]
         
         try:
+            # https://docs.python.org/3/library/subprocess.html
+            # If you wish to capture and combine both streams into one, 
+            # use stdout=PIPE and stderr=STDOUT instead of capture_output.
+            # youtube-dl emits error and warning to stderr
             proc = sp.Popen(cmd, stdout=sp.PIPE, stderr=sp.STDOUT)
         except Exception as e:
             print("... Error: %s"%e)
